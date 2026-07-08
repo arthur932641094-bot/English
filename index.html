@@ -1,0 +1,1628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<style>body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style>
+</head>
+<body>
+<title>Arthur's English Notebook</title>
+<style>
+  :root{
+    --bg:#ECEAE3; --surface:#FAF9F6; --surface-2:#F2F0EA; --line:#DEDBD1;
+    --ink:#23272F; --muted:#6E7178; --soft:#8A8C90;
+    --teal:#0F776A; --teal-ink:#0B5C52; --teal-soft:#E2EFEC;
+    --amber-wash:#FBEBCB; --amber-ink:#7A4E12;
+    --badge-word:#0F776A; --badge-chunk:#B26A18; --badge-phrase:#6B5BB0;
+    --badge-sentence:#B24A6A; --badge-slang:#3E8A46; --badge-grammar:#4A6478;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Songti SC",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --cjk:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --shadow:0 1px 2px rgba(30,34,42,.04),0 6px 18px rgba(30,34,42,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#15181D; --surface:#1D2128; --surface-2:#232830; --line:#2E343D;
+      --ink:#E8E7E2; --muted:#9A9E9C; --soft:#787C7C;
+      --teal:#5FCBB7; --teal-ink:#7FD9C8; --teal-soft:#1B2F2C;
+      --amber-wash:#33291339; --amber-ink:#E9C67C;
+      --badge-word:#5FCBB7; --badge-chunk:#E0A24E; --badge-phrase:#A99BE6;
+      --badge-sentence:#E6809C; --badge-slang:#78C47F; --badge-grammar:#8FA9BC;
+      --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 22px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#ECEAE3; --surface:#FAF9F6; --surface-2:#F2F0EA; --line:#DEDBD1;
+    --ink:#23272F; --muted:#6E7178; --soft:#8A8C90;
+    --teal:#0F776A; --teal-ink:#0B5C52; --teal-soft:#E2EFEC;
+    --amber-wash:#FBEBCB; --amber-ink:#7A4E12;
+    --badge-word:#0F776A; --badge-chunk:#B26A18; --badge-phrase:#6B5BB0;
+    --badge-sentence:#B24A6A; --badge-slang:#3E8A46; --badge-grammar:#4A6478;
+    --shadow:0 1px 2px rgba(30,34,42,.04),0 6px 18px rgba(30,34,42,.05);
+  }
+  :root[data-theme="dark"]{
+    --bg:#15181D; --surface:#1D2128; --surface-2:#232830; --line:#2E343D;
+    --ink:#E8E7E2; --muted:#9A9E9C; --soft:#787C7C;
+    --teal:#5FCBB7; --teal-ink:#7FD9C8; --teal-soft:#1B2F2C;
+    --amber-wash:#33291339; --amber-ink:#E9C67C;
+    --badge-word:#5FCBB7; --badge-chunk:#E0A24E; --badge-phrase:#A99BE6;
+    --badge-sentence:#E6809C; --badge-slang:#78C47F; --badge-grammar:#8FA9BC;
+    --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 22px rgba(0,0,0,.28);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--sans);line-height:1.5;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 96px;}
+
+  /* Cover */
+  header.cover{padding:56px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--teal);margin:0 0 14px;}
+  h1.title{font-family:var(--serif);font-weight:600;font-size:clamp(30px,6vw,46px);
+    line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance;}
+  .subtitle{color:var(--muted);margin:14px 0 0;font-size:16px;max-width:52ch;}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:20px;
+    font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.03em;}
+  .meta b{color:var(--ink);font-weight:600;}
+
+  /* Legend */
+  .legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:22px;
+    padding:14px 16px;background:var(--surface-2);border:1px solid var(--line);
+    border-radius:12px;font-size:12.5px;color:var(--muted);}
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:10px;height:10px;border-radius:3px;flex:none;}
+  .dot.zh{background:var(--amber-ink);}
+  .dot.core{background:var(--teal);}
+  .dot.ex{background:var(--ink);}
+
+  /* Filter nav */
+  nav.filter{position:sticky;top:0;z-index:5;background:var(--bg);
+    padding:14px 0 12px;margin-bottom:8px;border-bottom:1px solid var(--line);
+    display:flex;flex-direction:column;gap:11px;}
+  .search-row{position:relative;display:flex;align-items:center;}
+  .search-row svg{position:absolute;left:13px;width:16px;height:16px;
+    stroke:var(--soft);pointer-events:none;}
+  #search{width:100%;font-family:var(--sans);font-size:15px;color:var(--ink);
+    background:var(--surface);border:1px solid var(--line);border-radius:11px;
+    padding:11px 40px 11px 38px;transition:.15s;}
+  #search::placeholder{color:var(--soft);}
+  #search:focus{outline:none;border-color:var(--teal);
+    box-shadow:0 0 0 3px var(--teal-soft);}
+  #clear{position:absolute;right:9px;border:none;background:var(--surface-2);
+    color:var(--muted);width:24px;height:24px;border-radius:50%;cursor:pointer;
+    font-size:15px;line-height:1;display:none;align-items:center;justify-content:center;}
+  #clear:hover{color:var(--ink);}
+  #clear.show{display:flex;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;
+    border:1px solid var(--line);background:var(--surface);color:var(--muted);
+    padding:6px 13px;border-radius:999px;transition:.15s;}
+  .chip:hover{color:var(--ink);border-color:var(--soft);}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+  .chip:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
+  .noresult{display:none;text-align:center;color:var(--muted);
+    font-family:var(--cjk);padding:48px 0;font-size:15px;}
+  .noresult.show{display:block;}
+  mark{background:var(--amber-wash);color:inherit;border-radius:3px;padding:0 1px;}
+
+  /* Section */
+  section{margin-top:44px;scroll-margin-top:70px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin:0 0 4px;}
+  .sec-h h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em;}
+  .sec-h .cn{font-family:var(--cjk);color:var(--muted);font-size:15px;}
+  .sec-count{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--soft);}
+  .sec-rule{height:1px;background:var(--line);margin:12px 0 20px;}
+
+  /* Card */
+  .grid{display:flex;flex-direction:column;gap:14px;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;box-shadow:var(--shadow);}
+  .card-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:11px;}
+  .hw{font-family:var(--serif);font-weight:600;font-size:21px;margin:0;
+    letter-spacing:-.01em;line-height:1.15;}
+  .hw .cjk{font-family:var(--cjk);}
+  .badge{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 8px;border-radius:6px;font-weight:600;border:1px solid currentColor;
+    line-height:1;white-space:nowrap;}
+  .b-word{color:var(--badge-word);} .b-chunk{color:var(--badge-chunk);}
+  .b-phrase{color:var(--badge-phrase);} .b-sentence{color:var(--badge-sentence);}
+  .b-slang{color:var(--badge-slang);} .b-grammar{color:var(--badge-grammar);}
+
+  .zh{font-family:var(--cjk);font-size:15.5px;line-height:1.6;margin:0 0 10px;
+    color:var(--amber-ink);background:linear-gradient(var(--amber-wash),var(--amber-wash));
+    background-size:100% 100%;padding:7px 11px;border-radius:8px;
+    border-left:3px solid var(--amber-ink);}
+  .core{color:var(--teal-ink);font-size:15px;font-weight:500;margin:0 0 12px;
+    font-style:italic;}
+  :root[data-theme="dark"] .core, :root:not([data-theme]) .core{}
+  @media (prefers-color-scheme:dark){.core{color:var(--teal-ink);}}
+
+  ul.ex{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
+  ul.ex li{position:relative;padding-left:18px;font-size:15px;line-height:1.55;color:var(--ink);}
+  ul.ex li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;
+    border-radius:50%;background:var(--teal);opacity:.55;}
+  ul.ex li .cjk{font-family:var(--cjk);color:var(--muted);font-size:13.5px;}
+  b.t{color:var(--teal);font-weight:700;}
+  .note{margin-top:10px;font-family:var(--cjk);font-size:13.5px;color:var(--muted);
+    line-height:1.6;border-top:1px dashed var(--line);padding-top:9px;}
+
+  .hidden{display:none !important;}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--soft);font-family:var(--mono);font-size:12px;text-align:center;}
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+
+<div class="wrap">
+  <header class="cover">
+    <p class="eyebrow">Native English · Word / Chunk / Phrase / Sentence</p>
+    <h1 class="title">Arthur's English Notebook</h1>
+    <p class="subtitle">口语笔记整理版。每条只做三件事：一句中文底色给你砸下来的感觉，一句自然英文抓核心，几个自带情景的例句让你一看就懂。</p>
+    <div class="meta">
+      <span><b>135</b> entries</span>
+      <span>Source · English_improvement</span>
+      <span>Compiled 2026</span>
+    </div>
+    <div class="legend">
+      <span><i class="dot zh"></i>中文底色 — 那个感觉</span>
+      <span><i class="dot core"></i>English core meaning</span>
+      <span><i class="dot ex"></i>例句（<b class="t" style="font-weight:700">加色</b>= 目标词）</span>
+    </div>
+  </header>
+
+  <nav class="filter" aria-label="Search and filter">
+    <div class="search-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="search" autocomplete="off" placeholder="搜索词、中文意思、例句… (search anything)" aria-label="Search">
+      <button id="clear" aria-label="Clear search">&times;</button>
+    </div>
+    <div class="chips">
+      <button class="chip" data-f="all" aria-pressed="true">全部 All</button>
+      <button class="chip" data-f="chunk" aria-pressed="false">动词短语 Chunk</button>
+      <button class="chip" data-f="word" aria-pressed="false">词 Word</button>
+      <button class="chip" data-f="phrase" aria-pressed="false">短语 Phrase</button>
+      <button class="chip" data-f="sentence" aria-pressed="false">句子 Sentence</button>
+      <button class="chip" data-f="grammar" aria-pressed="false">语法 Grammar</button>
+      <button class="chip" data-f="slang" aria-pressed="false">澳俚 Slang</button>
+    </div>
+  </nav>
+  <div class="noresult" id="noresult">没找到匹配的条目 · No matches</div>
+
+  <!-- ============ SECTION 1: CHUNKS ============ -->
+  <section id="chunks" data-sec="chunk">
+    <div class="sec-h"><h2>Phrasal Verbs &amp; Chunks</h2><span class="cn">动词短语 · 搭配</span><span class="sec-count">1 / 6</span></div>
+    <div class="sec-rule"></div>
+    <div class="grid">
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">start off</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">一件事最开头的那一下，或者"一开始是……的状态"。</p>
+        <p class="core">To begin something, or to begin as / at a certain point.</p>
+        <ul class="ex">
+          <li>We <b class="t">started off</b> with a quick meeting.</li>
+          <li>He <b class="t">started off</b> as an intern, now he runs the team.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">send off</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">把东西寄出去、发出去，人交给邮政/系统之后就不在你手上了。</p>
+        <p class="core">To post or dispatch something so it's on its way.</p>
+        <ul class="ex">
+          <li>I <b class="t">sent off</b> the documents yesterday.</li>
+          <li>Have you <b class="t">sent off</b> the application yet?</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">set off / take off</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">出发、启程。set off 是人上路；take off 是飞机离地。</p>
+        <p class="core">Set off = to start a journey. Take off = a plane leaves the ground.</p>
+        <ul class="ex">
+          <li>We <b class="t">set off</b> at 7am to beat the traffic.</li>
+          <li>The plane <b class="t">took off</b> on time.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">pay off</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">两个意思：把钱还清；付出终于有了回报。</p>
+        <p class="core">To clear a debt in full, or for effort to finally bring a reward.</p>
+        <ul class="ex">
+          <li>All the hard work finally <b class="t">paid off</b>.</li>
+          <li>It took years, but we <b class="t">paid off</b> the mortgage.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">slack off</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">偷懒摸鱼，该干的活松了劲。</p>
+        <p class="core">To be lazy and stop putting in effort, especially at work.</p>
+        <ul class="ex">
+          <li>I've been <b class="t">slacking off</b> at work all day.</li>
+          <li>The moment the boss leaves, everyone <b class="t">slacks off</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">get dumped</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">被甩了，对方主动结束的那种。</p>
+        <p class="core">To be broken up with by your partner.</p>
+        <ul class="ex">
+          <li>He <b class="t">dumped</b> me over text — so cold.</li>
+          <li>She <b class="t">got dumped</b> a week before their anniversary.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">be over being + adj/n</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">受够了这个状态，不想再这样下去了。</p>
+        <p class="core">To be sick of a situation and done putting up with it.</p>
+        <ul class="ex">
+          <li>I'm <b class="t">over being</b> single. <span class="cjk">受够单身了</span></li>
+          <li>She's <b class="t">over being</b> treated like a child.</li>
+          <li>I'm <b class="t">over</b> working overtime all the time.</li>
+        </ul>
+        <p class="note">同义： I'm done with… / I'm sick of…。后面接 being + adj/n，或 doing。</p>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">catch up on</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">把落下的进度补回来。</p>
+        <p class="core">To do work you fell behind on and get current again.</p>
+        <ul class="ex">
+          <li>I stayed late to <b class="t">catch up on</b> work.</li>
+          <li>I need to <b class="t">catch up on</b> sleep this weekend.</li>
+        </ul>
+        <p class="note">自然搭配：catch up on work / sleep / emails / the news。别说 "catch up on the progress"（不地道）。</p>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">bump into</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">偶遇——没约就撞见了熟人。</p>
+        <p class="core">To meet someone by chance, without planning it.</p>
+        <ul class="ex">
+          <li>I <b class="t">bumped into</b> my old teacher at the supermarket.</li>
+          <li>Funny <b class="t">bumping into</b> you here!</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">go on / where it goes</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">东西"套上去 / 放在……上面 / 属于哪里"。问东西该放哪也用它。</p>
+        <p class="core">Where something is placed, fitted onto, or belongs.</p>
+        <ul class="ex">
+          <li>Does this jacket <b class="t">go on</b> over the hoodie?</li>
+          <li>Does this sauce <b class="t">go on</b> the chips or the burger?</li>
+          <li>Where does this <b class="t">go</b>? / Does this <b class="t">go</b> here?</li>
+        </ul>
+        <p class="note">近义家族：be placed on / listed on / included on / belong on。</p>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">flip (family)</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">核心是"翻/突然一下"。翻书、突然发火、翻个面、拨开关、竖中指。</p>
+        <p class="core">A quick flip or turn — of pages, of mood, of a switch.</p>
+        <ul class="ex">
+          <li>I was <b class="t">flipping through</b> a magazine. <span class="cjk">随手翻</span></li>
+          <li>He <b class="t">flipped</b> / <b class="t">flipped out</b> when he heard the news. <span class="cjk">突然炸了</span></li>
+          <li>On the <b class="t">flip side</b>, it saves us money. <span class="cjk">换个角度</span></li>
+          <li><b class="t">Flip the switch.</b> / He <b class="t">flipped</b> me <b class="t">off</b> 🖕</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">go through</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">熬过一段苦日子、经历一堆事。</p>
+        <p class="core">To live through a hard or difficult experience.</p>
+        <ul class="ex">
+          <li>He <b class="t">went through</b> a lot when he first moved to Australia.</li>
+          <li>She's <b class="t">going through</b> a rough patch right now.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">go over</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">从头到尾仔细过一遍——检查、复习、或一起讨论。</p>
+        <p class="core">To carefully review or run through something together.</p>
+        <ul class="ex">
+          <li>Let's <b class="t">go over</b> the plan one more time before the meeting.</li>
+          <li>Can you <b class="t">go over</b> my essay and check for mistakes?</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">come down with</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">开始生病了，感觉要感冒/发烧那种苗头。</p>
+        <p class="core">To start catching an illness, usually a mild one.</p>
+        <ul class="ex">
+          <li>I think I've <b class="t">come down with</b> a cold.</li>
+          <li>Half the office has <b class="t">come down with</b> the flu.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">come across as</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">给人一种……的印象（不一定是真的，是别人看你的感觉）。</p>
+        <p class="core">To give people a certain impression of what you're like.</p>
+        <ul class="ex">
+          <li>He <b class="t">comes across as</b> arrogant, but he's actually shy.</li>
+          <li>Be careful — that email <b class="t">comes across as</b> rude.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">take over / get over</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">take over = 接手、接管；get over = 从（打击/病/感情）里走出来。</p>
+        <p class="core">Take over = take control of. Get over = recover from something.</p>
+        <ul class="ex">
+          <li>Can you <b class="t">take over</b> for me while I'm on leave?</li>
+          <li>It took him months to <b class="t">get over</b> the breakup.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">roll over</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">没用完的东西自动结转到下个周期。</p>
+        <p class="core">For something unused to carry over to the next period.</p>
+        <ul class="ex">
+          <li>The unused data <b class="t">rolls over</b> to next month.</li>
+          <li>Do my leave days <b class="t">roll over</b> if I don't use them?</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">top up</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">加满、充值——把少了的补上去。</p>
+        <p class="core">To add more to bring something back up to full.</p>
+        <ul class="ex">
+          <li>Let me <b class="t">top up</b> your glass.</li>
+          <li>I need to <b class="t">top up</b> my phone / transport card.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">draw lots</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">抽签决定。</p>
+        <p class="core">To decide something randomly by drawing lots.</p>
+        <ul class="ex">
+          <li>We couldn't decide, so we <b class="t">drew lots</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">catch someone off guard</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">让人措手不及，完全没防备的时候被击中。</p>
+        <p class="core">To surprise someone when they're completely unprepared.</p>
+        <ul class="ex">
+          <li>The question really <b class="t">caught</b> me <b class="t">off guard</b>.</li>
+          <li>Her sudden resignation <b class="t">caught</b> everyone <b class="t">off guard</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">let's bounce</h3><span class="badge b-chunk">chunk</span></div>
+        <p class="zh">走吧、撤了，很随意的口语。</p>
+        <p class="core">Casual slang for "let's leave / let's get out of here."</p>
+        <ul class="ex">
+          <li>This party's dead — <b class="t">let's bounce</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="chunk">
+        <div class="card-h"><h3 class="hw">have been + doing / adj</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">从过去某点一直持续到现在的状态或动作。</p>
+        <p class="core">A state or action that started earlier and is still going now.</p>
+        <ul class="ex">
+          <li>My foot <b class="t">has been</b> numb since last night.</li>
+          <li>I <b class="t">have been feeling</b> off all week.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 2: WORDS ============ -->
+  <section id="words" data-sec="word">
+    <div class="sec-h"><h2>Single Words</h2><span class="cn">词</span><span class="sec-count">2 / 6</span></div>
+    <div class="sec-rule"></div>
+    <div class="grid">
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">cynical</h3><span class="badge b-word">word</span></div>
+        <p class="zh">啥都不信，谁做啥都觉得背后有私心。</p>
+        <p class="core">Distrusting people's motives, expecting selfishness behind anything.</p>
+        <ul class="ex">
+          <li>I'm a bit <b class="t">cynical</b> about online influencers.</li>
+          <li>"You think he'll actually help?" — "No. Call me <b class="t">cynical</b>."</li>
+        </ul>
+        <p class="note">A cynical person assumes the worst <b>motive</b>, not the worst outcome. 反面：He always gives people the benefit of the doubt.（总愿意先往好处想）</p>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">compatible (with)</h3><span class="badge b-word">word</span></div>
+        <p class="zh">合得来、能配套，两样东西/两个人不打架。</p>
+        <p class="core">Able to work or exist together without conflict.</p>
+        <ul class="ex">
+          <li>This charger isn't <b class="t">compatible with</b> my phone.</li>
+          <li>They're just not <b class="t">compatible</b> — always arguing.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">harsh</h3><span class="badge b-word">word</span></div>
+        <p class="zh">刺——话难听、态度苛刻、光线/声音扎人。</p>
+        <p class="core">Unpleasantly severe, either in tone, treatment, or on the senses.</p>
+        <ul class="ex">
+          <li>That's a bit <b class="t">harsh</b> — she's only a beginner.</li>
+          <li>The <b class="t">harsh</b> sunlight made everyone squint.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">persistent</h3><span class="badge b-word">word</span></div>
+        <p class="zh">赖着不走的——咳嗽、问题、或者一个不肯放弃的人。</p>
+        <p class="core">Continuing stubbornly and refusing to stop or go away.</p>
+        <ul class="ex">
+          <li>I had a <b class="t">persistent</b> cough for over a month.</li>
+          <li>He's so <b class="t">persistent</b> — he called five times.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">despair</h3><span class="badge b-word">word</span></div>
+        <p class="zh">彻底绝望，觉得没救了、没指望了。</p>
+        <p class="core">A complete loss of hope.</p>
+        <ul class="ex">
+          <li>She looked at the bill in <b class="t">despair</b>.</li>
+          <li>Don't <b class="t">despair</b> — there's still one option left.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">tempted</h3><span class="badge b-word">word</span></div>
+        <p class="zh">很想做，但因为某个原因还在犹豫、还没动手。</p>
+        <p class="core">Wanting to do something while still holding yourself back.</p>
+        <ul class="ex">
+          <li>I'm <b class="t">tempted</b> to quit, but the pay is too good.</li>
+          <li>I was <b class="t">tempted</b> to text her, then decided not to.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">nosy</h3><span class="badge b-word">word</span></div>
+        <p class="zh">好管闲事、爱打听别人的事。</p>
+        <p class="core">Too interested in other people's private business.</p>
+        <ul class="ex">
+          <li>Stop being so <b class="t">nosy</b> — it's none of your business.</li>
+          <li>My <b class="t">nosy</b> neighbour asks how much everything cost.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">flatter</h3><span class="badge b-word">word</span></div>
+        <p class="zh">说好听话捧你，往往是为了讨好、有目的。</p>
+        <p class="core">To praise someone insincerely, usually to please or get something.</p>
+        <ul class="ex">
+          <li>I knew she was just <b class="t">flattering</b> me to get a discount.</li>
+          <li>Don't let the compliments <b class="t">flatter</b> you into agreeing.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">disdain</h3><span class="badge b-word">word</span></div>
+        <p class="zh">打心底看不起，带着轻蔑的那种。</p>
+        <p class="core">A feeling that someone or something is beneath your respect.</p>
+        <ul class="ex">
+          <li>She looked at the cheap wine with <b class="t">disdain</b>.</li>
+          <li>He treats interns with total <b class="t">disdain</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">timid</h3><span class="badge b-word">word</span></div>
+        <p class="zh">胆小、怯生生，不太敢出头。</p>
+        <p class="core">Lacking courage; easily frightened or shy.</p>
+        <ul class="ex">
+          <li>He's too <b class="t">timid</b> to ask for a raise.</li>
+          <li>A <b class="t">timid</b> little dog hid behind the couch.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">optimistic</h3><span class="badge b-word">word</span></div>
+        <p class="zh">乐观，总觉得事情会往好的方向走。</p>
+        <p class="core">Expecting good things to happen.</p>
+        <ul class="ex">
+          <li>I'm <b class="t">optimistic</b> we'll hit the deadline.</li>
+          <li>Try to stay <b class="t">optimistic</b> — it's not over yet.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">self-serving · pessimistic · tiresome · dodgy</h3><span class="badge b-word">word</span></div>
+        <p class="zh">一组"看人"的形容词，都偏负面。</p>
+        <p class="core">A cluster of negative words for describing people.</p>
+        <ul class="ex">
+          <li><b class="t">self-serving</b> — 只为自己捞好处的</li>
+          <li><b class="t">pessimistic</b> — 悲观，总往坏处想</li>
+          <li><b class="t">tiresome</b> — 烦人、让人累的</li>
+          <li><b class="t">dodgy</b> — 靠不住、有点可疑的（澳英常用）</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">elegant · classy</h3><span class="badge b-word">word</span></div>
+        <p class="zh">有格调、上档次，不俗气。</p>
+        <p class="core">Stylish and tasteful in a refined way.</p>
+        <ul class="ex">
+          <li>She always dresses so <b class="t">elegant</b> / <b class="t">classy</b>.</li>
+          <li>A <b class="t">classy</b> little restaurant, nothing flashy.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">rare · precious</h3><span class="badge b-word">word</span></div>
+        <p class="zh">难得、珍贵。rare 是少见，precious 是值得珍惜。</p>
+        <p class="core">Rare = seldom found. Precious = valuable and worth treasuring.</p>
+        <ul class="ex">
+          <li>A day off is <b class="t">rare</b> for him.</li>
+          <li>These <b class="t">precious</b> few hours with family.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">obsolete</h3><span class="badge b-word">word</span></div>
+        <p class="zh">过时、被淘汰了，因为有更新的东西出来。</p>
+        <p class="core">No longer used because something newer replaced it.</p>
+        <ul class="ex">
+          <li>Fax machines are basically <b class="t">obsolete</b> now.</li>
+          <li>This software will be <b class="t">obsolete</b> in two years.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">moderate</h3><span class="badge b-word">word</span></div>
+        <p class="zh">适中、不极端——不多不少、不激进。</p>
+        <p class="core">Not too much, not too little; middle-of-the-road.</p>
+        <ul class="ex">
+          <li>Drink in <b class="t">moderate</b> amounts.</li>
+          <li>He holds fairly <b class="t">moderate</b> political views.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">amuse</h3><span class="badge b-word">word</span></div>
+        <p class="zh">逗乐、让人觉得有意思。</p>
+        <p class="core">To make someone smile or laugh; to entertain.</p>
+        <ul class="ex">
+          <li>The kids were <b class="t">amused</b> by the clumsy dog.</li>
+          <li>It <b class="t">amuses</b> me how seriously he takes chess.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">imply</h3><span class="badge b-word">word</span></div>
+        <p class="zh">话没说明，但暗示了、让你自己听出来。</p>
+        <p class="core">To suggest something without saying it directly.</p>
+        <ul class="ex">
+          <li>Are you <b class="t">implying</b> I lied?</li>
+          <li>Her silence <b class="t">implied</b> she disagreed.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">reveal</h3><span class="badge b-word">word</span></div>
+        <p class="zh">揭开、曝光——把藏着的东西露出来。</p>
+        <p class="core">To make something hidden known or visible.</p>
+        <ul class="ex">
+          <li>The test <b class="t">revealed</b> a serious problem.</li>
+          <li>She finally <b class="t">revealed</b> who sent the gift.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">perception · awareness</h3><span class="badge b-word">word</span></div>
+        <p class="zh">perception 是你怎么看/怎么感知；awareness 是你知不知道、有没有意识到。</p>
+        <p class="core">Perception = how you see or read something. Awareness = knowing it exists.</p>
+        <ul class="ex">
+          <li>Public <b class="t">perception</b> of the brand has shifted.</li>
+          <li>There's growing <b class="t">awareness</b> of mental health.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">facilitate</h3><span class="badge b-word">word</span></div>
+        <p class="zh">让一件事更顺、帮着促成，或主持带节奏。</p>
+        <p class="core">To make a process easier, or to lead/host a session.</p>
+        <ul class="ex">
+          <li>The app <b class="t">facilitates</b> booking in a few taps.</li>
+          <li>She'll <b class="t">facilitate</b> tomorrow's workshop.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">assimilate</h3><span class="badge b-word">word</span></div>
+        <p class="zh">融入——外来的人慢慢变得跟当地一样。</p>
+        <p class="core">To blend into and become part of a group or culture.</p>
+        <ul class="ex">
+          <li>There is every sign that new Asian-Americans are just as willing to <b class="t">assimilate</b>.</li>
+          <li>It took a year to fully <b class="t">assimilate</b> into the team.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">superstition</h3><span class="badge b-word">word</span></div>
+        <p class="zh">迷信——没道理但很多人信的忌讳/说法。</p>
+        <p class="core">A belief in luck or magic that isn't based on reason.</p>
+        <ul class="ex">
+          <li>Not walking under ladders is an old <b class="t">superstition</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">deviation</h3><span class="badge b-word">word</span></div>
+        <p class="zh">偏离——跟标准/常规不一样的那一点差。</p>
+        <p class="core">A difference from the expected or standard path.</p>
+        <ul class="ex">
+          <li>Any <b class="t">deviation</b> from the recipe changes the taste.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">turnover</h3><span class="badge b-word">word</span></div>
+        <p class="zh">两个意思：营业额；或者人员流动率（进进出出多快）。</p>
+        <p class="core">Total sales in a period, or how fast staff come and go.</p>
+        <ul class="ex">
+          <li>Annual <b class="t">turnover</b> hit two million.</li>
+          <li>The café has high staff <b class="t">turnover</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">cheesy</h3><span class="badge b-word">word</span></div>
+        <p class="zh">俗气、肉麻——土到让人脚趾抠地那种。</p>
+        <p class="core">Cheaply sentimental or corny in a slightly embarrassing way.</p>
+        <ul class="ex">
+          <li>That's such a <b class="t">cheesy</b> pick-up line.</li>
+          <li>The movie's ending was so <b class="t">cheesy</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">deserted</h3><span class="badge b-word">word</span></div>
+        <p class="zh">空荡荡、没人，被丢下的地方。</p>
+        <p class="core">Empty of people; abandoned.</p>
+        <ul class="ex">
+          <li>The street was completely <b class="t">deserted</b> at midnight.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">spamming</h3><span class="badge b-word">word</span></div>
+        <p class="zh">刷屏——一条接一条地狂发。</p>
+        <p class="core">Sending the same or too many messages repeatedly.</p>
+        <ul class="ex">
+          <li>Stop <b class="t">spamming</b> the group chat.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">metabolism</h3><span class="badge b-word">word</span></div>
+        <p class="zh">新陈代谢——身体烧掉能量的速度。</p>
+        <p class="core">How your body converts food into energy.</p>
+        <ul class="ex">
+          <li>He can eat anything — fast <b class="t">metabolism</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">dehydrate</h3><span class="badge b-word">word</span></div>
+        <p class="zh">脱水——身体缺水，或把食物的水抽干。</p>
+        <p class="core">To lose or remove water from the body or food.</p>
+        <ul class="ex">
+          <li>Drink up — you'll <b class="t">dehydrate</b> in this heat.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">moisten</h3><span class="badge b-word">word</span></div>
+        <p class="zh">弄湿一点、润一下，不是湿透。</p>
+        <p class="core">To make something slightly wet.</p>
+        <ul class="ex">
+          <li><b class="t">Moisten</b> the cloth before wiping.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">drain</h3><span class="badge b-word">word</span></div>
+        <p class="zh">把水放干、排走；也指把人耗空。</p>
+        <p class="core">To let liquid flow away, or to use up energy completely.</p>
+        <ul class="ex">
+          <li><b class="t">Drain</b> the pasta before adding sauce.</li>
+          <li>That meeting completely <b class="t">drained</b> me.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">alter</h3><span class="badge b-word">word</span></div>
+        <p class="zh">改动一点点——尤其改衣服、改细节。</p>
+        <p class="core">To change something slightly.</p>
+        <ul class="ex">
+          <li>I need to <b class="t">alter</b> these pants — too long.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">mutual</h3><span class="badge b-word">word</span></div>
+        <p class="zh">相互的、双方都有的。</p>
+        <p class="core">Shared or felt equally by both sides.</p>
+        <ul class="ex">
+          <li>The respect is <b class="t">mutual</b>.</li>
+          <li>We have a <b class="t">mutual</b> friend.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">admire</h3><span class="badge b-word">word</span></div>
+        <p class="zh">佩服、欣赏，打心底觉得好。</p>
+        <p class="core">To respect and think highly of someone or something.</p>
+        <ul class="ex">
+          <li>I really <b class="t">admire</b> how calm she stays under pressure.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">compliment</h3><span class="badge b-word">word</span></div>
+        <p class="zh">赞美、夸奖（真心的那种，跟 flatter 不同）。</p>
+        <p class="core">A genuine expression of praise.</p>
+        <ul class="ex">
+          <li>She gave me a nice <b class="t">compliment</b> on my cooking.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">allowance</h3><span class="badge b-word">word</span></div>
+        <p class="zh">补贴、零花——定期给的一笔钱。</p>
+        <p class="core">A regular amount of money given for a purpose.</p>
+        <ul class="ex">
+          <li>The job comes with a travel <b class="t">allowance</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">apprentice / apprenticeship</h3><span class="badge b-word">word</span></div>
+        <p class="zh">学徒 / 学徒身份——边干边学一门手艺。</p>
+        <p class="core">A trainee learning a trade; the training period itself.</p>
+        <ul class="ex">
+          <li>He's an <b class="t">apprentice</b> electrician.</li>
+          <li>She did a four-year <b class="t">apprenticeship</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">drought</h3><span class="badge b-word">word</span></div>
+        <p class="zh">干旱——长期没雨；也引申"长期缺某样东西"。</p>
+        <p class="core">A long period without rain, or without something needed.</p>
+        <ul class="ex">
+          <li>The <b class="t">drought</b> ruined the crops.</li>
+          <li>The team's on a scoring <b class="t">drought</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">colony · colonize</h3><span class="badge b-word">word</span></div>
+        <p class="zh">殖民地 / 殖民——一个国家占领并统治另一片地方。</p>
+        <p class="core">A territory controlled by another country; to take it over.</p>
+        <ul class="ex">
+          <li>Britain <b class="t">colonized</b> Australia.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">capitalist · communist</h3><span class="badge b-word">word</span></div>
+        <p class="zh">资本主义者 / 共产主义者，也作形容词。</p>
+        <p class="core">Someone who supports capitalism / communism.</p>
+        <ul class="ex">
+          <li>A <b class="t">capitalist</b> economy vs. a <b class="t">communist</b> one.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">latitude · longitude</h3><span class="badge b-word">word</span></div>
+        <p class="zh">纬度 / 经度。lAtitude 横（越往上越冷），lONgitude 竖。</p>
+        <p class="core">Latitude = horizontal lines. Longitude = vertical lines.</p>
+        <ul class="ex">
+          <li>Sydney sits at about 34 degrees <b class="t">latitude</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">physiological</h3><span class="badge b-word">word</span></div>
+        <p class="zh">生理上的——跟身体机能有关，不是心理。</p>
+        <p class="core">Relating to how the body physically functions.</p>
+        <ul class="ex">
+          <li>Hunger is a <b class="t">physiological</b> response.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">oxide · oxidize</h3><span class="badge b-word">word</span></div>
+        <p class="zh">氧化物 / 氧化——跟氧气反应（比如生锈、变色）。</p>
+        <p class="core">A compound with oxygen; to react with oxygen.</p>
+        <ul class="ex">
+          <li>Cut apples <b class="t">oxidize</b> and turn brown.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">protrusion</h3><span class="badge b-word">word</span></div>
+        <p class="zh">凸起、突出来的一小块。</p>
+        <p class="core">A part that sticks out from a surface.</p>
+        <ul class="ex">
+          <li>There's a small <b class="t">protrusion</b> on the surface.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">taper</h3><span class="badge b-word">word</span></div>
+        <p class="zh">越往一头越细、逐渐收窄；也指慢慢减量。</p>
+        <p class="core">To gradually narrow, or to reduce little by little.</p>
+        <ul class="ex">
+          <li>The candle <b class="t">tapers</b> to a point.</li>
+          <li>Doctors <b class="t">taper</b> the dose slowly.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">pitch</h3><span class="badge b-word">word</span></div>
+        <p class="zh">这里指"设定好的角度/间距/高度"——一个固定的档位。</p>
+        <p class="core">A fixed position, angle, spacing, or level something is set to.</p>
+        <ul class="ex">
+          <li>Adjust the <b class="t">pitch</b> of the blade.</li>
+          <li>The screw <b class="t">pitch</b> is 1.5&nbsp;mm.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">slot · groove · well</h3><span class="badge b-word">word</span></div>
+        <p class="zh">三种"凹进去"：slot 是长条插槽，groove 是凹槽/沟，well 是能装东西的凹腔。</p>
+        <p class="core">Slot = a long narrow opening. Groove = a channel. Well = a hollow that holds something.</p>
+        <ul class="ex">
+          <li>Insert the card into the <b class="t">slot</b>.</li>
+          <li>The lid sits in a <b class="t">groove</b>. / The battery <b class="t">well</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">routing</h3><span class="badge b-word">word</span></div>
+        <p class="zh">规划路径——东西/信号/线路怎么走。</p>
+        <p class="core">The path chosen for something to travel along.</p>
+        <ul class="ex">
+          <li>The <b class="t">routing</b> of the cables runs under the floor.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">batter · gluten</h3><span class="badge b-word">word</span></div>
+        <p class="zh">batter 是面糊（稀的，能倒的）；gluten 是面筋。</p>
+        <p class="core">Batter = a pourable flour mixture. Gluten = the protein in wheat.</p>
+        <ul class="ex">
+          <li>Dip the fish in <b class="t">batter</b> before frying.</li>
+          <li>She's on a <b class="t">gluten</b>-free diet.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">broth</h3><span class="badge b-word">word</span></div>
+        <p class="zh">高汤、清汤——熬出来的汤底。</p>
+        <p class="core">A savoury liquid made by simmering meat or vegetables.</p>
+        <ul class="ex">
+          <li>Add the noodles to the <b class="t">broth</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">celery</h3><span class="badge b-word">word</span></div>
+        <p class="zh">芹菜（西芹那种，长梗）。</p>
+        <p class="core">A long, crunchy green vegetable stalk.</p>
+        <ul class="ex">
+          <li>Chop some <b class="t">celery</b> for the soup.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">bladder</h3><span class="badge b-word">word</span></div>
+        <p class="zh">膀胱。</p>
+        <p class="core">The organ that holds urine.</p>
+        <ul class="ex">
+          <li>My <b class="t">bladder</b> is full — need a toilet.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">swab · cotton swab</h3><span class="badge b-word">word</span></div>
+        <p class="zh">棉签；也指用棉签取样、擦拭。</p>
+        <p class="core">A small stick with cotton on the end; to wipe or sample with it.</p>
+        <ul class="ex">
+          <li>The nurse took a throat <b class="t">swab</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">barbell · dumbbell</h3><span class="badge b-word">word</span></div>
+        <p class="zh">杠铃（长杆，两手）/ 哑铃（短的，单手）。</p>
+        <p class="core">Barbell = long bar. Dumbbell = short hand weight.</p>
+        <ul class="ex">
+          <li>Load the <b class="t">barbell</b> for squats.</li>
+          <li>Grab a pair of <b class="t">dumbbells</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">headlight</h3><span class="badge b-word">word</span></div>
+        <p class="zh">车前大灯。</p>
+        <p class="core">The front lights of a vehicle.</p>
+        <ul class="ex">
+          <li>Turn your <b class="t">headlights</b> on — it's getting dark.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">aurora / polar light</h3><span class="badge b-word">word</span></div>
+        <p class="zh">极光。</p>
+        <p class="core">The natural light display in polar skies.</p>
+        <ul class="ex">
+          <li>We flew to Iceland to see the <b class="t">aurora</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">opium</h3><span class="badge b-word">word</span></div>
+        <p class="zh">鸦片。</p>
+        <p class="core">An addictive drug made from poppies.</p>
+        <ul class="ex">
+          <li>The <b class="t">Opium</b> Wars reshaped 19th-century China.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">willpower · consistency</h3><span class="badge b-word">word</span></div>
+        <p class="zh">意志力 / 坚持不断。减肥、学习这类事全靠这俩。</p>
+        <p class="core">Self-control, and doing something steadily over time.</p>
+        <ul class="ex">
+          <li>I lost weight through <b class="t">willpower</b> and <b class="t">consistency</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">girth</h3><span class="badge b-word">word</span></div>
+        <p class="zh">周长、粗细（一圈的宽度）。注：网上论坛里常特指某处的粗细，注意语境。</p>
+        <p class="core">The measurement around something; its thickness.</p>
+        <ul class="ex">
+          <li>The tree's <b class="t">girth</b> was over two metres.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">boner · clit</h3><span class="badge b-word">word</span></div>
+        <p class="zh">口语/俚语的性相关词，很随便、场合要小心。boner = 硬了；clit = 阴蒂（clitoris 简称）。</p>
+        <p class="core">Casual slang; keep to informal, private contexts only.</p>
+        <ul class="ex">
+          <li>He got a <b class="t">boner</b>. <span class="cjk">（很口语，正式场合别用）</span></li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">fetish</h3><span class="badge b-word">word</span></div>
+        <p class="zh">癖好、恋物——对某样东西的强烈偏好（常带性意味）。</p>
+        <p class="core">A strong fixation on a particular object or thing.</p>
+        <ul class="ex">
+          <li>He has a bit of a shoe <b class="t">fetish</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">shortcut</h3><span class="badge b-word">word</span></div>
+        <p class="zh">捷径——更近的路，或省事的走法（有时贬义"投机取巧"）。</p>
+        <p class="core">A quicker route or method; sometimes an easy way that cuts corners.</p>
+        <ul class="ex">
+          <li>There's a <b class="t">shortcut</b> through the park.</li>
+          <li>There's no <b class="t">shortcut</b> to fluency — just practice.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">trophy</h3><span class="badge b-word">word</span></div>
+        <p class="zh">奖杯、战利品。</p>
+        <p class="core">A prize, usually a cup or figure, for winning.</p>
+        <ul class="ex">
+          <li>They lifted the <b class="t">trophy</b> after the final.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">service charge</h3><span class="badge b-word">word</span></div>
+        <p class="zh">服务费——账单上另加的一笔（不是小费，是强制的）。</p>
+        <p class="core">A fee added to a bill for service, separate from a tip.</p>
+        <ul class="ex">
+          <li>A 10% <b class="t">service charge</b> is added for groups of six or more.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="word">
+        <div class="card-h"><h3 class="hw">abort</h3><span class="badge b-word">word</span></div>
+        <p class="zh">中止、异常终止——半路停掉一个进行中的动作/程序。</p>
+        <p class="core">To stop something before it finishes; to cancel mid-process.</p>
+        <ul class="ex">
+          <li>They had to <b class="t">abort</b> the launch at the last second.</li>
+          <li>The download <b class="t">aborted</b> halfway. <span class="cjk">（程序异常终止）</span></li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3: PHRASES ============ -->
+  <section id="phrases" data-sec="phrase">
+    <div class="sec-h"><h2>Phrases &amp; Expressions</h2><span class="cn">短语 · 表达</span><span class="sec-count">3 / 6</span></div>
+    <div class="sec-rule"></div>
+    <div class="grid">
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">I'm tripping</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">我脑子抽了、我看错了、我记岔了——一时短路的那种。</p>
+        <p class="core">Slang for "I'm not thinking straight" or "I got it wrong."</p>
+        <ul class="ex">
+          <li>Wait, today's Tuesday? I'm <b class="t">tripping</b>.</li>
+          <li>I swear I locked it — I must be <b class="t">tripping</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">low key</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">说真的、说白了、悄悄地——语气放低，坦白一点。</p>
+        <p class="core">Quietly / honestly / a little bit — softening what you admit.</p>
+        <ul class="ex">
+          <li>I'm <b class="t">low key</b> nervous about tomorrow.</li>
+          <li><b class="t">Low key</b>, this is the best meal I've had all week.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">where was I?</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">我刚说到哪了？（话被打断后接回去）</p>
+        <p class="core">Said to find your place after being interrupted.</p>
+        <ul class="ex">
+          <li>Sorry, <b class="t">where was I</b>? Oh right, the budget.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">we're all on the same page</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">大家理解一致、想法对上了。</p>
+        <p class="core">Everyone shares the same understanding.</p>
+        <ul class="ex">
+          <li>Let's confirm we're all <b class="t">on the same page</b> before we start.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">is it with you? / do you have it?</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">东西在你那儿吗？很自然的口语问法。</p>
+        <p class="core">Natural ways to ask if someone is holding something.</p>
+        <ul class="ex">
+          <li>The key — <b class="t">is it with you</b>? / <b class="t">Do you have it</b>?</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">I didn't catch you</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">没听清你说啥，礼貌地让人再说一遍。</p>
+        <p class="core">A polite way to say you didn't hear or understand.</p>
+        <ul class="ex">
+          <li>Sorry, I <b class="t">didn't catch</b> that — could you repeat it?</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">no one's gonna accommodate you</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">没人会迁就你、没人惯着你——世界不围着你转。</p>
+        <p class="core">No one is going to bend or make special arrangements for you.</p>
+        <ul class="ex">
+          <li>Out here, <b class="t">no one's gonna accommodate you</b> — figure it out.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">there's some drama</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">有瓜、有八卦、有人闹起来了。</p>
+        <p class="core">There's some conflict or gossip going on.</p>
+        <ul class="ex">
+          <li>Ooh, <b class="t">there's some drama</b> in the group chat.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">have you ever heard this saying?</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">你听过这句话/这种说法吗？（引出一句谚语）</p>
+        <p class="core">Used to introduce a proverb or common saying.</p>
+        <ul class="ex">
+          <li><b class="t">Have you ever heard this saying</b>: "less is more"?</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">spot me / give me a spot</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">健身房里"帮我保护一下"。spot on 另义 = 完全正确。</p>
+        <p class="core">Gym: to stand by and help lift safely. "Spot on" = exactly right.</p>
+        <ul class="ex">
+          <li>Can you <b class="t">spot me</b> on this set?</li>
+          <li>Your guess was <b class="t">spot on</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">power board</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">插线板、拖线板（澳英叫法）。</p>
+        <p class="core">A multi-socket extension board (AU/UK term).</p>
+        <ul class="ex">
+          <li>Plug it into the <b class="t">power board</b> under the desk.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">bum bag</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">腰包（美式叫 fanny pack）。</p>
+        <p class="core">A small pouch worn around the waist (AU/UK).</p>
+        <ul class="ex">
+          <li>He keeps his phone in a <b class="t">bum bag</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">ice block / ice pole</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">冰棒、冰棍。</p>
+        <p class="core">A frozen ice treat on a stick.</p>
+        <ul class="ex">
+          <li>Grab an <b class="t">ice block</b> from the freezer.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">instant noodles</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">泡面。（注意是 instant，不是 instand）</p>
+        <p class="core">Quick-cook packet noodles.</p>
+        <ul class="ex">
+          <li>Too tired to cook — just <b class="t">instant noodles</b> tonight.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">intermittent fasting</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">间歇性断食（比如 16:8）。</p>
+        <p class="core">Cycling between eating windows and fasting periods.</p>
+        <ul class="ex">
+          <li>He does <b class="t">intermittent fasting</b> — eats only after noon.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">lactose intolerance</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">乳糖不耐——喝奶就闹肚子。</p>
+        <p class="core">Being unable to digest the sugar in milk.</p>
+        <ul class="ex">
+          <li>I skip the latte — <b class="t">lactose intolerance</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">binge · purge</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">binge = 暴食/狂刷（一口气猛来）；purge = 清空/催吐/清除。</p>
+        <p class="core">Binge = to do a lot at once. Purge = to clear or empty out.</p>
+        <ul class="ex">
+          <li>We <b class="t">binged</b> the whole season in one night.</li>
+          <li>Time to <b class="t">purge</b> the old files.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">make a putback / tip-in</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">篮球：补篮 / 空中直接点进的补篮。</p>
+        <p class="core">Basketball: to score off a rebound; a tip-in is done in the air.</p>
+        <ul class="ex">
+          <li>He grabbed the board and made the <b class="t">putback</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">sports betting</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">体育博彩、押比赛。</p>
+        <p class="core">Gambling on the outcome of sports.</p>
+        <ul class="ex">
+          <li>He lost a fortune on <b class="t">sports betting</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">riddle · lateral thinking puzzle</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">谜语 / 脑筋急转弯（要跳出常规思路的那种）。</p>
+        <p class="core">A word puzzle; a lateral one needs unconventional thinking.</p>
+        <ul class="ex">
+          <li>Try this <b class="t">riddle</b> — it's a real head-scratcher.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">chemistry</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">两个人之间那种自然的来电、合拍、聊得来。比"默契"更广。</p>
+        <p class="core">A natural connection, compatibility, and rapport between people.</p>
+        <ul class="ex">
+          <li>They have real <b class="t">chemistry</b> on screen.</li>
+          <li>Nice guy, but we just had no <b class="t">chemistry</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">fishy · gamey</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">形容味道：fishy = 一股腥味（也引申"事情有点可疑"）；gamey = 野味那种偏膻、偏冲的味道。</p>
+        <p class="core">Fishy = smells of fish (or suspicious). Gamey = strong wild-meat taste.</p>
+        <ul class="ex">
+          <li>This smells a bit <b class="t">fishy</b> — is it fresh?</li>
+          <li>His story sounds <b class="t">fishy</b> to me.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">charred · stale · spoiled · rotten</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">食物出问题四连：charred 烤焦；stale 放软放干不新鲜；spoiled 坏了；rotten 烂掉了。</p>
+        <p class="core">Charred = burnt. Stale = old/dry. Spoiled = gone bad. Rotten = decayed.</p>
+        <ul class="ex">
+          <li>The toast is a bit <b class="t">charred</b>.</li>
+          <li>The bread's gone <b class="t">stale</b>; the milk's <b class="t">spoiled</b>; the fruit's <b class="t">rotten</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">buy in bulk</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">大批量买——一次买一大堆，通常更便宜。</p>
+        <p class="core">To buy a large quantity at once, usually to save money.</p>
+        <ul class="ex">
+          <li>We <b class="t">buy</b> rice <b class="t">in bulk</b> — it's way cheaper.</li>
+          <li>Costco is great for <b class="t">bulk</b> shopping.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="phrase">
+        <div class="card-h"><h3 class="hw">no use / no help</h3><span class="badge b-phrase">phrase</span></div>
+        <p class="zh">没用、帮不上忙。</p>
+        <p class="core">Useless; not helping the situation.</p>
+        <ul class="ex">
+          <li>Complaining is <b class="t">no use</b> now.</li>
+          <li>That advice was <b class="t">no help</b> at all.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4: SENTENCES ============ -->
+  <section id="sentences" data-sec="sentence">
+    <div class="sec-h"><h2>Whole Sentences</h2><span class="cn">句子</span><span class="sec-count">4 / 6</span></div>
+    <div class="sec-rule"></div>
+    <div class="grid">
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">passive-aggressive / snarky</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">阴阳怪气——不直接发火，用酸话、冷刺挤兑你。</p>
+        <p class="core">Expressing anger indirectly through sly, cutting remarks.</p>
+        <ul class="ex">
+          <li>Stop being so <b class="t">passive-aggressive</b> — just say it.</li>
+          <li>He's always making <b class="t">snarky</b> remarks in meetings.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">You're being dramatic</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">你演过头了、小题大做、反应太夸张。</p>
+        <p class="core">You're overreacting and making a bigger deal than it is.</p>
+        <ul class="ex">
+          <li>You're being a bit <b class="t">dramatic</b>. / You're so <b class="t">dramatic</b>.</li>
+          <li>You're <b class="t">overdoing it</b>. <span class="cjk">你演过头了</span></li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">I gradually got used to it</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">慢慢就习惯了。</p>
+        <p class="core">Over time it stopped feeling strange or hard.</p>
+        <ul class="ex">
+          <li>The commute was rough at first, but I <b class="t">gradually got used to it</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">Stop fantasising</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">别做白日梦了、别瞎想了。</p>
+        <p class="core">Stop imagining things that won't happen.</p>
+        <ul class="ex">
+          <li>She's never texting back — <b class="t">stop fantasising</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">I knew she was just flattering me</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">我知道她那些好话就是想哄我/有目的。</p>
+        <p class="core">I could tell the praise wasn't sincere.</p>
+        <ul class="ex">
+          <li>I knew she was just <b class="t">flattering</b> me to get the day off.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">I lost weight through willpower and consistency</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">我靠意志力加坚持瘦下来的。</p>
+        <p class="core">No shortcut — just discipline kept up over time.</p>
+        <ul class="ex">
+          <li>No pills, no fad — I <b class="t">lost weight through willpower and consistency</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">There's a small protrusion on the surface</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">表面有个小凸起。（描述一个物件的瑕疵/结构）</p>
+        <p class="core">Describing a small bump sticking out of a surface.</p>
+        <ul class="ex">
+          <li>Feel here — <b class="t">there's a small protrusion on the surface</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="sentence">
+        <div class="card-h"><h3 class="hw">…just as willing to assimilate</h3><span class="badge b-sentence">sentence</span></div>
+        <p class="zh">一整句书面表达，讲移民融入的意愿。</p>
+        <p class="core">A formal sentence about immigrants' willingness to blend in.</p>
+        <ul class="ex">
+          <li>There is every sign that new Asian-Americans are just as <b class="t">willing to assimilate</b>.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 5: GRAMMAR ============ -->
+  <section id="grammar" data-sec="grammar">
+    <div class="sec-h"><h2>Grammar &amp; Usage</h2><span class="cn">语法 · 辨析</span><span class="sec-count">5 / 6</span></div>
+    <div class="sec-rule"></div>
+    <div class="grid">
+
+      <article class="card" data-cat="grammar">
+        <div class="card-h"><h3 class="hw">few / fewer vs little / less</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">能数的用 few/fewer（人、朋友、选项）；不能数的用 little/less（钱、时间、水）。</p>
+        <p class="core">Few/fewer for countable things; little/less for uncountable.</p>
+        <ul class="ex">
+          <li><b class="t">Few</b> people · <b class="t">fewer</b> options left <span class="cjk">（可数）</span></li>
+          <li><b class="t">Less</b> money · <b class="t">less</b> time left <span class="cjk">（不可数）</span></li>
+        </ul>
+        <p class="note">加 "a" 就是"没那么少、还有一点"：a few friends（有几个）· a little money（有点钱）。不加 a 则强调"很少"。</p>
+      </article>
+
+      <article class="card" data-cat="grammar">
+        <div class="card-h"><h3 class="hw">left vs rest（剩下）</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">rest = 一个整体里"其余那部分"；left = 发生了什么之后"还剩着的"。</p>
+        <p class="core">Rest = the other part of a whole. Left = what remains after something happened.</p>
+        <ul class="ex">
+          <li>I'll finish the <b class="t">rest</b> of the chicken. <span class="cjk">本来有的里剩下的</span></li>
+          <li>Two days <b class="t">left</b> · three tickets <b class="t">left</b> · no money <b class="t">left</b></li>
+        </ul>
+        <p class="note">left 常放名词后面（two days left）；rest 常用 the rest / the rest of + n。</p>
+      </article>
+
+      <article class="card" data-cat="grammar">
+        <div class="card-h"><h3 class="hw">rarely vs barely</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">rarely 说的是"很少发生"（频率）；barely 说的是"几乎没有 / 勉强"（程度）。</p>
+        <p class="core">Rarely = frequency (seldom). Barely = degree (only just).</p>
+        <ul class="ex">
+          <li>I <b class="t">rarely</b> eat out. <span class="cjk">很少出去吃</span></li>
+          <li>I <b class="t">barely</b> passed the exam. <span class="cjk">勉强及格</span></li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="grammar">
+        <div class="card-h"><h3 class="hw">by Friday</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">"最晚周五之前"——截止到那个点，不能更晚。</p>
+        <p class="core">No later than Friday — the deadline is that point.</p>
+        <ul class="ex">
+          <li>Send it <b class="t">by Friday</b>. / <b class="t">By the end of Friday</b> at the latest.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="grammar">
+        <div class="card-h"><h3 class="hw">frequency: every 2 yrs / twice</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">表达频率的两种说法。</p>
+        <p class="core">Ways to state how often something happens.</p>
+        <ul class="ex">
+          <li><b class="t">Every 2 years</b> <span class="cjk">每两年一次</span></li>
+          <li><b class="t">Twice every three years</b> <span class="cjk">三年里两次</span></li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="grammar">
+        <div class="card-h"><h3 class="hw">one of the three (of them)</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">三个里的一个。加不加 of them 都行，意思一样。</p>
+        <p class="core">Both forms are fine and mean the same thing.</p>
+        <ul class="ex">
+          <li><b class="t">One of the three</b> is broken.</li>
+          <li><b class="t">One of the three of them</b> didn't show up.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 6: SLANG ============ -->
+  <section id="slang" data-sec="slang">
+    <div class="sec-h"><h2>Aussie Slang</h2><span class="cn">澳洲俚语</span><span class="sec-count">6 / 6</span></div>
+    <div class="sec-rule"></div>
+    <div class="grid">
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">fair dinkum</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">"真的假的？/ 我去 / 是真的"——澳洲人表示惊讶或强调真实。</p>
+        <p class="core">Aussie for "really?" or "genuine / for real."</p>
+        <ul class="ex">
+          <li>You won the lottery? <b class="t">Fair dinkum</b>?!</li>
+          <li>He's a <b class="t">fair dinkum</b> good bloke.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">fair go</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">"给个机会吧 / 公平点吧"——澳洲人挂嘴边的公平精神。</p>
+        <p class="core">A fair chance; "give us a break / be fair."</p>
+        <ul class="ex">
+          <li>Come on, give the kid a <b class="t">fair go</b>.</li>
+          <li>Everyone deserves a <b class="t">fair go</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">fairo / fair enough</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">"行吧 / 可以 / 那没事了"——听完对方理由后表示接受、认了。</p>
+        <p class="core">"Fair enough" — accepting someone's reason or point.</p>
+        <ul class="ex">
+          <li>"I can't make it, I'm working." — "<b class="t">Fairo</b>, no worries."</li>
+          <li>"It's $10 extra for delivery." — "Yeah, <b class="t">fair enough</b>."</li>
+        </ul>
+        <p class="note">注意别跟 fair go 搞混：fair go = 给机会/公平对待；fairo = 认可、接受对方说法。</p>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">heaps</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">超多、很——澳洲人用它代替 a lot / very。</p>
+        <p class="core">Lots / very (Aussie intensifier).</p>
+        <ul class="ex">
+          <li>Thanks <b class="t">heaps</b>! / It's <b class="t">heaps</b> better now.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">cooked</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">"完了 / 废了 / 累瘫了 / 疯了"——看语境，反正是坏掉的状态。</p>
+        <p class="core">Ruined, exhausted, broken, or crazy — context decides.</p>
+        <ul class="ex">
+          <li>I'm absolutely <b class="t">cooked</b> after that shift.</li>
+          <li>The traffic's <b class="t">cooked</b> today.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">hectic</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">忙疯了、乱成一团、超猛（也可褒义"太刺激了"）。</p>
+        <p class="core">Crazy busy or intense — can be good or bad.</p>
+        <ul class="ex">
+          <li>Work's been <b class="t">hectic</b> all week.</li>
+          <li>That stunt was <b class="t">hectic</b>, mate!</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">fuckin oath</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">"必须的 / 那还用说 / 太对了"——强烈同意（粗口，很随便）。</p>
+        <p class="core">Strong agreement: "hell yeah / damn right." Vulgar, very casual.</p>
+        <ul class="ex">
+          <li>"Beers after work?" — "<b class="t">Fuckin oath</b>."</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">mad · wild · cracked</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">mad/wild = 太夸张了/太猛了；cracked = 强得离谱（游戏、滑雪等语境夸人厉害）。</p>
+        <p class="core">Mad/wild = insane/awesome. Cracked = insanely skilled.</p>
+        <ul class="ex">
+          <li>That party was <b class="t">mad</b> / <b class="t">wild</b>.</li>
+          <li>That player is absolutely <b class="t">cracked</b>.</li>
+        </ul>
+      </article>
+
+      <article class="card" data-cat="slang">
+        <div class="card-h"><h3 class="hw">dodgy</h3><span class="badge b-slang">slang</span></div>
+        <p class="zh">靠不住、有点可疑、质量差——澳英超常用。</p>
+        <p class="core">Suspicious, unreliable, or low quality.</p>
+        <ul class="ex">
+          <li>That seafood looked a bit <b class="t">dodgy</b>.</li>
+          <li>He gave me a <b class="t">dodgy</b> excuse.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>Arthur's English Notebook · 准 · 真 · 白</footer>
+</div>
+
+<script>
+  const chips = document.querySelectorAll('.chip');
+  const cards = document.querySelectorAll('.card');
+  const sections = document.querySelectorAll('section[data-sec]');
+  const search = document.getElementById('search');
+  const clearBtn = document.getElementById('clear');
+  const noresult = document.getElementById('noresult');
+  let activeCat = 'all';
+
+  // cache each card's plain text for fast searching
+  cards.forEach(c => { c.dataset.text = c.textContent.toLowerCase(); });
+
+  function highlight(q){
+    // clear old highlights
+    document.querySelectorAll('mark').forEach(m => {
+      const p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize();
+    });
+    if(!q) return;
+    const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    cards.forEach(card=>{
+      if(card.classList.contains('hidden')) return;
+      card.querySelectorAll('.hw, .zh, .core, ul.ex li').forEach(node=>{
+        [...node.childNodes].forEach(n=>{
+          if(n.nodeType===3 && n.textContent.toLowerCase().includes(q)){
+            const span=document.createElement('span');
+            span.innerHTML=n.textContent.replace(new RegExp('('+esc+')','gi'),'<mark>$1</mark>');
+            n.parentNode.replaceChild(span,n);
+          }
+        });
+      });
+    });
+  }
+
+  function apply(){
+    const q = search.value.trim().toLowerCase();
+    clearBtn.classList.toggle('show', q.length>0);
+    let shown = 0;
+    cards.forEach(card=>{
+      const catOk = activeCat==='all' || card.dataset.cat===activeCat;
+      const textOk = !q || card.dataset.text.includes(q);
+      const show = catOk && textOk;
+      card.classList.toggle('hidden', !show);
+      if(show) shown++;
+    });
+    sections.forEach(sec=>{
+      sec.classList.toggle('hidden', !sec.querySelector('.card:not(.hidden)'));
+    });
+    noresult.classList.toggle('show', shown===0);
+    highlight(q);
+  }
+
+  chips.forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      activeCat = chip.dataset.f;
+      chips.forEach(c=>c.setAttribute('aria-pressed', c===chip ? 'true':'false'));
+      apply();
+    });
+  });
+  search.addEventListener('input', apply);
+  clearBtn.addEventListener('click', ()=>{ search.value=''; search.focus(); apply(); });
+</script>
+
+</body></html>
