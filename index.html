@@ -15,7 +15,7 @@
     --teal:#0F776A; --teal-ink:#0B5C52; --teal-soft:#E2EFEC;
     --amber-wash:#FBEBCB; --amber-ink:#7A4E12;
     --badge-word:#0F776A; --badge-chunk:#B26A18; --badge-phrase:#6B5BB0;
-    --badge-sentence:#B24A6A; --badge-slang:#3E8A46; --badge-grammar:#4A6478;
+    --badge-sentence:#B24A6A; --badge-slang:#3E8A46; --badge-grammar:#4A6478; --badge-cluster:#C0392B;
     --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Songti SC",serif;
     --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     --cjk:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
@@ -29,7 +29,7 @@
       --teal:#5FCBB7; --teal-ink:#7FD9C8; --teal-soft:#1B2F2C;
       --amber-wash:#33291339; --amber-ink:#E9C67C;
       --badge-word:#5FCBB7; --badge-chunk:#E0A24E; --badge-phrase:#A99BE6;
-      --badge-sentence:#E6809C; --badge-slang:#78C47F; --badge-grammar:#8FA9BC;
+      --badge-sentence:#E6809C; --badge-slang:#78C47F; --badge-grammar:#8FA9BC; --badge-cluster:#E8837A;
       --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 22px rgba(0,0,0,.28);
     }
   }
@@ -39,7 +39,7 @@
     --teal:#0F776A; --teal-ink:#0B5C52; --teal-soft:#E2EFEC;
     --amber-wash:#FBEBCB; --amber-ink:#7A4E12;
     --badge-word:#0F776A; --badge-chunk:#B26A18; --badge-phrase:#6B5BB0;
-    --badge-sentence:#B24A6A; --badge-slang:#3E8A46; --badge-grammar:#4A6478;
+    --badge-sentence:#B24A6A; --badge-slang:#3E8A46; --badge-grammar:#4A6478; --badge-cluster:#C0392B;
     --shadow:0 1px 2px rgba(30,34,42,.04),0 6px 18px rgba(30,34,42,.05);
   }
   :root[data-theme="dark"]{
@@ -48,7 +48,7 @@
     --teal:#5FCBB7; --teal-ink:#7FD9C8; --teal-soft:#1B2F2C;
     --amber-wash:#33291339; --amber-ink:#E9C67C;
     --badge-word:#5FCBB7; --badge-chunk:#E0A24E; --badge-phrase:#A99BE6;
-    --badge-sentence:#E6809C; --badge-slang:#78C47F; --badge-grammar:#8FA9BC;
+    --badge-sentence:#E6809C; --badge-slang:#78C47F; --badge-grammar:#8FA9BC; --badge-cluster:#E8837A;
     --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 22px rgba(0,0,0,.28);
   }
 
@@ -132,7 +132,19 @@
     line-height:1;white-space:nowrap;}
   .b-word{color:var(--badge-word);} .b-chunk{color:var(--badge-chunk);}
   .b-phrase{color:var(--badge-phrase);} .b-sentence{color:var(--badge-sentence);}
-  .b-slang{color:var(--badge-slang);} .b-grammar{color:var(--badge-grammar);}
+  .b-slang{color:var(--badge-slang);} .b-grammar{color:var(--badge-grammar);} .b-cluster{color:var(--badge-cluster);}
+
+  .card .map{display:flex;flex-direction:column;gap:15px;margin-top:2px;}
+  .card .mg h4{font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--teal-ink);
+    margin:0 0 7px;letter-spacing:.02em;}
+  .card .mg .row{display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+    padding:4px 0;border-bottom:1px dashed var(--line);font-size:14.5px;line-height:1.4;}
+  .card .mg .row:last-child{border-bottom:none;}
+  .card .mg .row b{font-weight:600;color:var(--ink);}
+  .card .mg .row span{font-family:var(--cjk);color:var(--muted);font-size:13px;text-align:right;}
+  .card .mg .sense{font-size:14.5px;line-height:1.55;padding:3px 0;color:var(--ink);}
+  .card .mg .sense .cn{font-family:var(--cjk);color:var(--muted);font-size:13px;}
+  .card .mg .sense b.t{color:var(--teal);font-weight:700;}
 
   .zh{font-family:var(--cjk);font-size:15.5px;line-height:1.6;margin:0 0 10px;
     color:var(--amber-ink);background:linear-gradient(var(--amber-wash),var(--amber-wash));
@@ -189,13 +201,14 @@
       <button class="chip" data-f="sentence" aria-pressed="false">句子 Sentence</button>
       <button class="chip" data-f="grammar" aria-pressed="false">语法 Grammar</button>
       <button class="chip" data-f="slang" aria-pressed="false">澳俚 Slang</button>
+      <button class="chip" data-f="cluster" aria-pressed="false">词群 Cluster</button>
     </div>
   </nav>
   <div class="noresult" id="noresult">没找到匹配的条目 · No matches</div>
 
   <!-- ============ SECTION 1: CHUNKS ============ -->
   <section id="chunks" data-sec="chunk">
-    <div class="sec-h"><h2>Phrasal Verbs &amp; Chunks</h2><span class="cn">动词短语 · 搭配</span><span class="sec-count">1 / 6</span></div>
+    <div class="sec-h"><h2>Phrasal Verbs &amp; Chunks</h2><span class="cn">动词短语 · 搭配</span><span class="sec-count">1 / 7</span></div>
     <div class="sec-rule"></div>
     <div class="grid">
 
@@ -430,7 +443,7 @@
 
   <!-- ============ SECTION 2: WORDS ============ -->
   <section id="words" data-sec="word">
-    <div class="sec-h"><h2>Single Words</h2><span class="cn">词</span><span class="sec-count">2 / 6</span></div>
+    <div class="sec-h"><h2>Single Words</h2><span class="cn">词</span><span class="sec-count">2 / 7</span></div>
     <div class="sec-rule"></div>
     <div class="grid">
 
@@ -1098,7 +1111,7 @@
 
   <!-- ============ SECTION 3: PHRASES ============ -->
   <section id="phrases" data-sec="phrase">
-    <div class="sec-h"><h2>Phrases &amp; Expressions</h2><span class="cn">短语 · 表达</span><span class="sec-count">3 / 6</span></div>
+    <div class="sec-h"><h2>Phrases &amp; Expressions</h2><span class="cn">短语 · 表达</span><span class="sec-count">3 / 7</span></div>
     <div class="sec-rule"></div>
     <div class="grid">
 
@@ -1332,7 +1345,7 @@
 
   <!-- ============ SECTION 4: SENTENCES ============ -->
   <section id="sentences" data-sec="sentence">
-    <div class="sec-h"><h2>Whole Sentences</h2><span class="cn">句子</span><span class="sec-count">4 / 6</span></div>
+    <div class="sec-h"><h2>Whole Sentences</h2><span class="cn">句子</span><span class="sec-count">4 / 7</span></div>
     <div class="sec-rule"></div>
     <div class="grid">
 
@@ -1415,7 +1428,7 @@
 
   <!-- ============ SECTION 5: GRAMMAR ============ -->
   <section id="grammar" data-sec="grammar">
-    <div class="sec-h"><h2>Grammar &amp; Usage</h2><span class="cn">语法 · 辨析</span><span class="sec-count">5 / 6</span></div>
+    <div class="sec-h"><h2>Grammar &amp; Usage</h2><span class="cn">语法 · 辨析</span><span class="sec-count">5 / 7</span></div>
     <div class="sec-rule"></div>
     <div class="grid">
 
@@ -1485,7 +1498,7 @@
 
   <!-- ============ SECTION 6: SLANG ============ -->
   <section id="slang" data-sec="slang">
-    <div class="sec-h"><h2>Aussie Slang</h2><span class="cn">澳洲俚语</span><span class="sec-count">6 / 6</span></div>
+    <div class="sec-h"><h2>Aussie Slang</h2><span class="cn">澳洲俚语</span><span class="sec-count">6 / 7</span></div>
     <div class="sec-rule"></div>
     <div class="grid">
 
@@ -1578,6 +1591,117 @@
         </ul>
       </article>
 
+    </div>
+  </section>
+
+  <!-- ============ SECTION 7: CLUSTERS ============ -->
+  <section id="clusters" data-sec="cluster">
+    <div class="sec-h"><h2>Theme Clusters</h2><span class="cn">词群 · 词汇地图</span><span class="sec-count">7 / 7</span></div>
+    <div class="sec-rule"></div>
+    <div class="grid">
+
+      <article class="card" data-cat="cluster">
+        <div class="card-h"><h3 class="hw">看 · ways to look</h3><span class="badge b-cluster">cluster</span></div>
+        <p class="zh">"看"这个动作，英文按"怎么看"分好多档——随便看、快速瞟、盯着、瞪、偷看、温柔看…选错档很出戏。</p>
+        <p class="core">English has a whole spectrum of "look" verbs, sorted by how you look.</p>
+        <div class="map">
+          <div class="mg"><h4>普通看 · neutral</h4>
+            <div class="row"><b>look</b><span>看</span></div>
+            <div class="row"><b>watch</b><span>观看（持续）</span></div>
+            <div class="row"><b>see</b><span>看见</span></div>
+            <div class="row"><b>observe</b><span>观察</span></div>
+            <div class="row"><b>notice</b><span>注意到</span></div>
+            <div class="row"><b>glimpse</b><span>瞥见</span></div>
+            <div class="row"><b>view</b><span>观看（正式）</span></div>
+          </div>
+          <div class="mg"><h4>快速瞟 · a quick look</h4>
+            <div class="row"><b>glance</b><span>快速一瞥</span></div>
+            <div class="row"><b>dart a glance</b><span>飞快瞟过去</span></div>
+            <div class="row"><b>cast a glance</b><span>投去一瞥</span></div>
+            <div class="row"><b>flick one's eyes</b><span>眼神快速移动</span></div>
+          </div>
+          <div class="mg"><h4>盯着看 · a long look</h4>
+            <div class="row"><b>stare</b><span>盯着看（偏不礼貌）</span></div>
+            <div class="row"><b>gaze</b><span>凝视（温柔）</span></div>
+            <div class="row"><b>peer</b><span>努力看清</span></div>
+            <div class="row"><b>study</b><span>端详</span></div>
+            <div class="row"><b>scrutinize</b><span>审视、挑毛病地看</span></div>
+            <div class="row"><b>inspect</b><span>检查式看</span></div>
+          </div>
+          <div class="mg"><h4>带敌意 · hostile</h4>
+            <div class="row"><b>glare</b><span>怒视 ⭐</span></div>
+            <div class="row"><b>scowl</b><span>皱眉瞪</span></div>
+            <div class="row"><b>glower</b><span>阴沉地瞪</span></div>
+            <div class="row"><b>shoot someone a look</b><span>狠瞪一眼</span></div>
+            <div class="row"><b>give someone the evil eye</b><span>恶狠狠盯</span></div>
+            <div class="row"><b>fix someone with a stare</b><span>死死盯住</span></div>
+          </div>
+          <div class="mg"><h4>鄙视 · contempt</h4>
+            <div class="row"><b>sneer</b><span>冷笑看</span></div>
+            <div class="row"><b>leer</b><span>色眯眯地看</span></div>
+            <div class="row"><b>smirk</b><span>得意坏笑</span></div>
+          </div>
+          <div class="mg"><h4>温柔 · warm</h4>
+            <div class="row"><b>gaze</b><span>深情凝视</span></div>
+            <div class="row"><b>admire</b><span>欣赏地看</span></div>
+            <div class="row"><b>beam at</b><span>笑着看</span></div>
+            <div class="row"><b>smile at</b><span>微笑看</span></div>
+          </div>
+          <div class="mg"><h4>偷偷看 · sneak</h4>
+            <div class="row"><b>peek</b><span>偷瞄</span></div>
+            <div class="row"><b>peep</b><span>偷窥</span></div>
+            <div class="row"><b>sneak a look</b><span>偷偷看</span></div>
+            <div class="row"><b>steal a glance</b><span>偷瞄一眼</span></div>
+            <div class="row"><b>spy</b><span>窥见</span></div>
+          </div>
+          <div class="mg"><h4>惊讶 · shock</h4>
+            <div class="row"><b>gape</b><span>张嘴看</span></div>
+            <div class="row"><b>gawk</b><span>傻傻盯着</span></div>
+            <div class="row"><b>gawp</b><span>呆看（英式）</span></div>
+          </div>
+          <div class="mg"><h4>眼神名词 · nouns</h4>
+            <div class="row"><b>eye contact</b><span>眼神交流</span></div>
+            <div class="row"><b>eye movement</b><span>眼球运动</span></div>
+            <div class="row"><b>gaze direction</b><span>视线方向</span></div>
+            <div class="row"><b>expression</b><span>表情</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="cluster">
+        <div class="card-h"><h3 class="hw">snap <span class="ph">/snæp/ <i>v. · n.</i></span></h3><span class="badge b-cluster">cluster</span></div>
+        <p class="zh">核心一个感觉：<b>突然 + 快 + 脆</b>。下面这些意思全从这儿长出来。</p>
+        <p class="core">One core feel — sudden, quick, sharp. Every sense grows from that.</p>
+        <div class="map">
+          <div class="mg"><h4>1. 折断、断裂 ⭐</h4>
+            <div class="sense">The branch <b class="t">snapped</b>. · My shoelace <b class="t">snapped</b>. · He <b class="t">snapped</b> the pencil in half.</div>
+          </div>
+          <div class="mg"><h4>2. 情绪爆发 · snap at someone ⭐</h4>
+            <div class="sense">Sorry, I didn't mean to <b class="t">snap at</b> you. · He finally <b class="t">snapped</b> after weeks of stress. <span class="cn">绷不住了</span></div>
+          </div>
+          <div class="mg"><h4>3. 拍照（口语）</h4>
+            <div class="sense">Let me <b class="t">snap</b> a photo. · She <b class="t">snapped</b> a picture. <span class="cn">比 take a photo 随意</span></div>
+          </div>
+          <div class="mg"><h4>4. 打响指</h4>
+            <div class="sense">He <b class="t">snapped</b> his fingers.</div>
+          </div>
+          <div class="mg"><h4>5. 厉声回嘴</h4>
+            <div class="sense">"Leave me alone!" she <b class="t">snapped</b>. <span class="cn">厉声说道</span></div>
+          </div>
+          <div class="mg"><h4>6. 咔哒一声（扣合）</h4>
+            <div class="sense">The lock <b class="t">snapped shut</b>. · The lid <b class="t">snapped</b> into place.</div>
+          </div>
+          <div class="mg"><h4>7. snap out of it · 振作</h4>
+            <div class="sense">别发呆、别陷进去了，动起来。 <span class="cn">Snap out of it!</span></div>
+          </div>
+          <div class="mg"><h4>8. in a snap · 一瞬间</h4>
+            <div class="sense">It was over <b class="t">in a snap</b>.</div>
+          </div>
+          <div class="mg"><h4>9. snap into action / focus · 立刻进入状态</h4>
+            <div class="sense">Everyone <b class="t">snapped into action</b>. <span class="cn">大家立刻开始行动</span></div>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
