@@ -168,6 +168,15 @@
   footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--soft);font-family:var(--mono);font-size:12px;text-align:center;}
   @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+
+  .tbl-wrap{overflow-x:auto;margin-top:8px;}
+  table.tense{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px;}
+  table.tense th,table.tense td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;line-height:1.5;}
+  table.tense th{background:var(--surface-2);color:var(--ink);font-weight:600;white-space:nowrap;}
+  table.tense td:first-child{white-space:nowrap;font-family:var(--cjk);color:var(--ink);font-weight:600;}
+  table.tense td b{color:var(--teal);}
+  table.tense td i{color:var(--muted);font-style:italic;}
+  table.tense td:last-child{font-family:var(--cjk);color:var(--muted);white-space:nowrap;}
 </style>
 
 <div class="wrap">
@@ -5685,6 +5694,34 @@
     <div class="sec-h"><h2>Grammar &amp; Usage</h2><span class="cn">语法 · 辨析</span><span class="sec-count">5 / 7</span></div>
     <div class="sec-rule"></div>
     <div class="grid">
+
+      <article class="card" data-cat="grammar">
+        <div class="card-h"><h3 class="hw">英语时态大表 · 12 tenses</h3><span class="badge b-grammar">grammar</span></div>
+        <p class="zh">英语一共12种时态，按"现在/过去/将来" × "一般/进行/完成/完成进行"四种状态组合出来。be动词和实义动词结构不一样，容易搞混，这张表一次性理清。</p>
+        <p class="core">The 12 English tenses, formed by crossing time (present/past/future) with aspect (simple/progressive/perfect/perfect progressive).</p>
+        <div class="tbl-wrap">
+          <table class="tense">
+            <thead>
+              <tr><th>时态</th><th>结构</th><th>be 动词例句</th><th>普通动词例句</th><th>核心意思</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>一般现在时</td><td>am/is/are；work/works</td><td>I <b>am</b> busy.</td><td>I <b>work</b> every day.</td><td>现在状态、习惯、事实</td></tr>
+              <tr><td>现在进行时</td><td>am/is/are + being；am/is/are + working</td><td>He <b>is being</b> rude.</td><td>I <b>am working</b> now.</td><td>现在正在发生</td></tr>
+              <tr><td>现在完成时</td><td>have/has + been；have/has + finished</td><td>I <b>have been</b> busy.</td><td>I <b>have finished</b>.</td><td>到现在已经发生/形成结果</td></tr>
+              <tr><td>现在完成进行时</td><td>have/has + been being；have/has + been working</td><td>He <b>has been being</b> rude. <i>(很少用)</i></td><td>I <b>have been working</b> for two hours.</td><td>从过去持续到现在</td></tr>
+              <tr><td>一般过去时</td><td>was/were；worked</td><td>I <b>was</b> busy.</td><td>I <b>worked</b> yesterday.</td><td>过去发生并结束</td></tr>
+              <tr><td>过去进行时</td><td>was/were + being；was/were + working</td><td>He <b>was being</b> rude.</td><td>I <b>was working</b> at 8.</td><td>过去某时正在发生</td></tr>
+              <tr><td>过去完成时</td><td>had + been；had + finished</td><td>I <b>had been</b> busy.</td><td>I <b>had finished</b> before he came.</td><td>到过去某点之前已经发生</td></tr>
+              <tr><td>过去完成进行时</td><td>had + been being；had + been working</td><td>He <b>had been being</b> rude. <i>(极少用)</i></td><td>I <b>had been working</b> for two hours.</td><td>到过去某点之前一直持续</td></tr>
+              <tr><td>一般将来时</td><td>will + be；will + work</td><td>I <b>will be</b> busy.</td><td>I <b>will work</b> tomorrow.</td><td>将来发生</td></tr>
+              <tr><td>将来进行时</td><td>will + be being；will + be working</td><td>He <b>will be being</b> rude. <i>(很少用)</i></td><td>I <b>will be working</b> at 8.</td><td>将来某时正在发生</td></tr>
+              <tr><td>将来完成时</td><td>will have + been；will have + finished</td><td>I <b>will have been</b> here for four years.</td><td>I <b>will have finished</b> by 8.</td><td>到将来某点已经完成</td></tr>
+              <tr><td>将来完成进行时</td><td>will have + been being；will have + been working</td><td>He <b>will have been being</b> rude. <i>(几乎不用)</i></td><td>I <b>will have been working</b> for two hours by 8.</td><td>到将来某点已经持续一段时间</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">be 动词那一列（is being / has been being 之类）大多是理论上存在但极少实际使用的结构，重点记住"普通动词例句"那一列的用法。</p>
+      </article>
 
       <article class="card" data-cat="grammar">
         <div class="card-h"><h3 class="hw">few / fewer vs little / less</h3><span class="badge b-grammar">grammar</span></div>
