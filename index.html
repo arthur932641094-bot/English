@@ -8931,7 +8931,11 @@
       restoreHome();
       dateView.hidden = true;
       sections.forEach(sec=>{
-        sec.classList.toggle('hidden', !sec.querySelector('.card:not(.hidden)'));
+        const grid = sec.querySelector('.grid');
+        const secCards = grid ? visibleList.filter(c => c._home === grid) : [];
+        secCards.sort((a,b) => b.dataset.added.localeCompare(a.dataset.added)); // newest first within category
+        secCards.forEach(c => grid.appendChild(c));
+        sec.classList.toggle('hidden', secCards.length === 0);
       });
     } else {
       restoreHome();
@@ -8971,6 +8975,8 @@
   });
   search.addEventListener('input', apply);
   clearBtn.addEventListener('click', ()=>{ search.value=''; search.focus(); apply(); });
+
+  apply();
 </script>
 
 </body></html>
