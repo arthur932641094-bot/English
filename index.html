@@ -188,7 +188,7 @@
     <h1 class="title">Arthur's English Notebook</h1>
     <p class="subtitle">口语笔记整理版。每条只做三件事：一句中文底色给你砸下来的感觉，一句自然英文抓核心，几个自带情景的例句让你一看就懂。</p>
     <div class="meta">
-      <span><b>150+</b> entries · 7 categories</span>
+      <span><b id="entryCount">150+</b> entries · 7 categories</span>
       <span>Source · English_improvement</span>
       <span>Compiled 2026</span>
     </div>
@@ -8884,6 +8884,9 @@
     c.dataset.text = c.textContent.toLowerCase();
     c._home = c.parentElement;
   });
+
+  const entryCount = document.getElementById('entryCount');
+  if(entryCount) entryCount.textContent = cards.length;
 
   function restoreHome(){
     cards.forEach(c => { if(c.parentElement !== c._home) c._home.appendChild(c); });
