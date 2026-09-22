@@ -8894,22 +8894,38 @@
   }
 
   function highlight(q){
-    // clear old highlights
+    // restore the DOM to its unhighlighted state (mark -> text, then merge split text nodes)
     document.querySelectorAll('mark').forEach(m => {
       const p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize();
     });
     if(!q) return;
-    const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
     cards.forEach(card=>{
       if(card.classList.contains('hidden')) return;
-      card.querySelectorAll('.hw, .zh, .core, ul.ex li').forEach(node=>{
-        [...node.childNodes].forEach(n=>{
-          if(n.nodeType===3 && n.textContent.toLowerCase().includes(q)){
-            const span=document.createElement('span');
-            span.innerHTML=n.textContent.replace(new RegExp('('+esc+')','gi'),'<mark>$1</mark>');
-            n.parentNode.replaceChild(span,n);
-          }
-        });
+      // walk every text node in the card so notes, cluster rows and tables highlight too
+      const walker = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, {
+        acceptNode(n){
+          if(!n.nodeValue.toLowerCase().includes(q)) return NodeFilter.FILTER_REJECT;
+          if(n.parentElement.classList.contains('added-badge')) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const targets = [];
+      while(walker.nextNode()) targets.push(walker.currentNode);
+      targets.forEach(node=>{
+        const text = node.nodeValue;
+        const frag = document.createDocumentFragment();
+        let last = 0, m;
+        re.lastIndex = 0;
+        while((m = re.exec(text)) !== null){
+          if(m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+          const mk = document.createElement('mark');
+          mk.textContent = m[0];
+          frag.appendChild(mk);
+          last = m.index + m[0].length;
+        }
+        if(last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
       });
     });
   }
